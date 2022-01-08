@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'Lekarze', 'titlePage' => __('Moduł lekarzy')])
+@extends('layouts.app', ['activePage' => 'Sekretarki', 'titlePage' => __('Moduł sekretarek')])
 
 @section('title')
 @if (isset($title)){{$title }}
@@ -13,48 +13,38 @@
         <div class="card-icon">
           <i class="material-icons">edit</i>
         </div>
-        <h3 class="card-title">Edycja lekarza</h3>
+        <h3 class="card-title">Edycja sekretarki</h3>
       </div>
-      <a class="nav-link" href="{{ URL::to('doctors') }}">
+      <a class="nav-link" href="{{ URL::to('secretary') }}">
         <i class="material-icons">arrow_back_ios</i>Wróć
       </a>
       <div class="card-body table-responsive">
-        <form action="{{ action('App\Http\Controllers\DoctorController@editStore') }}" method="POST" role="form">
+        <form action="{{ action('App\Http\Controllers\SecretaryController@editStore') }}" method="POST" role="form">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-          <input type="hidden" name="id" value="{{ $doctor->id }}" />
+          <input type="hidden" name="id" value="{{ $secretary->id }}" />
           <div class="form-group">
             <label for="name">Imię i nazwisko: </label>
-            <input type="text" class="form-control" name="name" value="{{ $doctor->name }}" />
+            <input type="text" class="form-control" name="name" value="{{ $secretary->name }}" />
           </div>
           <div class="form-group">
             <label for="email">Email: </label>
-            <input type="text" class="form-control" name="email" value="{{ $doctor->email }}" />
+            <input type="text" class="form-control" name="email" value="{{ $secretary->email }}" />
           </div>
           <div class="form-group">
             <label for="phone">Phone: </label>
-            <input type="text" class="form-control" name="phone" value="{{ $doctor->phone }}" />
+            <input type="text" class="form-control" name="phone" value="{{ $secretary->phone }}" />
           </div>
           <div class="form-group">
             <label for="address">Adres: </label>
-            <input type="text" class="form-control" name="address" value="{{ $doctor->address }}" />
+            <input type="text" class="form-control" name="address" value="{{ $secretary->address }}" />
           </div>
           <div class="form-group">
             <label for="pesel">Pesel: </label>
-            <input type="text" class="form-control" name="pesel" value="{{ $doctor->pesel }}" />
-          </div>
-          <div class="form-group">
-            <label for="specialization">Specjalizacja: </label><br>
-              @foreach($specializations as $specialization)
-                @if($doctor->specializations->contains($specialization->id))
-                  <input type="checkbox" class="form-check form-check-inline" name="specializations[]" value="{{ $specialization->id }}" checked/>{{ $specialization->name }}
-                @else
-                  <input type="checkbox" class="form-check form-check-inline" name="specializations[]" value="{{ $specialization->id }}" />{{ $specialization->name }}
-                @endif
-              @endforeach
+            <input type="text" class="form-control" name="pesel" value="{{ $secretary->pesel }}" />
           </div>
           <div class="form-group">
             <label for="pesel">Status: </label><br>
-              @if($doctor->status == 'Active')
+              @if($secretary->status == 'Active')
                 Aktywny<input type="radio" class="form-check-inline" name="status" value="Active" checked="checked"/>
                 Nieaktywny<input type="radio" class="form-check-inline" name="status" value="Inactive" />
               @else

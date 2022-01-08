@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'Lekarze', 'titlePage' => __('Moduł lekarzy')])
+@extends('layouts.app', ['activePage' => 'Sekretarki', 'titlePage' => __('Moduł sekretarek')])
 
 @section('title')
 @if (isset($title)){{$title }}
@@ -7,29 +7,29 @@
 
 @section('content')
 <div class="content">
-  @if ($errors->any())                                                            <!--wyświetlanie/obsługa błędów-->
-  <div class="alert alert-danger">
-    <ul>
-      @foreach($errors->all() as $error)
-      <li> {{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-  @endif
-
   <div class="container-fluid">
     <div class="card">
+      @if ($errors->any())                                                            <!--wyświetlanie/obsługa błędów-->
+      <div class="alert alert-danger">
+        <ul>
+          @foreach($errors->all() as $error)
+          <li> {{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+
       <div class="card-header card-header-info text-center">
         <div class="card-icon">
             <i class="material-icons">add_circle_outline</i>
           </div>
-        <h3 class="card-title">Dodaj lekarza</h3>
+        <h3 class="card-title">Dodaj sekretarkę</h3>
       </div>
-        <a class="nav-link" href="{{ URL::to('doctors') }}">
+        <a class="nav-link" href="{{ URL::to('secretary') }}">
           <i class="material-icons">arrow_back_ios</i>Wróć
         </a>
       <div class="card-body table-responsive">
-        <form action="{{ action('App\Http\Controllers\DoctorController@store') }}" method="POST" role="form">
+        <form action="{{ action('App\Http\Controllers\SecretaryController@store') }}" method="POST" role="form">
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <div class="form-group">
               <label for="name">Imię i nazwisko</label>
@@ -54,12 +54,6 @@
             <div class="form-group">
               <label for="pesel">Pesel</label>
               <input type="text" class="form-control" name="pesel" />
-            </div>
-            <div class="form-group">
-              <label for="specialization">Specjalizacja</label>
-                @foreach($specializations as $specialization)
-                  <input type="checkbox" class="form-check form-check-inline" name="specializations[]" value="{{ $specialization->id }}" />{{ $specialization->name }}
-                @endforeach
             </div>
           <input type="hidden" name="status" value="Active" />
           <input type="submit" value="Dodaj" class="btn btn-primary"/>

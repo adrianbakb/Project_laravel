@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Moduł pacjentów')])
+@extends('layouts.app', ['activePage' => 'Pacjenci', 'titlePage' => __('Moduł pacjentów')])
 
 @section('title')
 @if (isset($title)){{$title }}
@@ -13,7 +13,7 @@
         <div class="card-icon">
             <i class="material-icons">groups</i>
           </div>
-        <h4 class="card-title">{{ $patient->name}}</h4>
+        <h4 class="card-title">{{ $patient->name ?? 'None'}}</h4>
       </div>
           <a class="nav-link" href="{{ URL::to('patients') }}">
             <i class="material-icons">arrow_back_ios</i>Wróć
@@ -22,23 +22,23 @@
           <table class="table table-hover">
             <tr>
               <td>Name:</td>
-              <td>{{ $patient->name}}</td>
+              <td>{{ $patient->name ?? 'None'}}</td>
             </tr>
             <tr>
               <td>Email:</td>
-              <td>{{ $patient->email}}</td>
+              <td>{{ $patient->email ?? 'None'}}</td>
             </tr>
             <tr>
               <td>Phone:</td>
-              <td>{{ $patient->phone}}</td>
+              <td>{{ $patient->phone ?? 'None'}}</td>
             </tr>
             <tr>
               <td>Address:</td>
-              <td>{{ $patient->address}}</td>
+              <td>{{ $patient->address ?? 'None'}}</td>
             </tr>
             <tr>
               <td>Pesel:</td>
-              <td>{{ $patient->pesel}}</td>
+              <td>{{ $patient->pesel ?? 'None'}}</td>
             </tr>
           </table>
       </div>

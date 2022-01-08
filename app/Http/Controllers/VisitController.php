@@ -19,11 +19,6 @@ class VisitController extends Controller
 
   public function index(VisitRepository $visitRepo){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin' )
-    {
-      return redirect()->route('login');
-    }
-
 
     $visits = $visitRepo ->getAll();
 
@@ -34,7 +29,7 @@ class VisitController extends Controller
 
   public function create(UserRepository $userRepo){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
@@ -47,10 +42,13 @@ class VisitController extends Controller
 
   public function store(Request $request){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
+    $request->validate([                                                      //walidacja danych wprowadzonych do formularza
+      'date' => 'required'
+    ]);
 
     $visit = new Visit;
     $visit->doctor_id = $request->input('doctor');

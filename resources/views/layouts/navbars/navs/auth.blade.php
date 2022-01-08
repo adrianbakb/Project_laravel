@@ -40,8 +40,8 @@
             <a class="dropdown-item" href="{{ URL::to('doctors') }}">{{ __('Lekarze') }}</a>
             <a class="dropdown-item" href="{{ URL::to('patients') }}">{{ __('Pacjenci') }}</a>
             <a class="dropdown-item" href="{{ URL::to('visits') }}">{{ __('Wizyty') }}</a>
-            <a class="dropdown-item" href="#">{{ __('Puste') }}</a>
-            <a class="dropdown-item" href="#">{{ __('Puste') }}</a>
+            <a class="dropdown-item" href="{{ URL::to('secretary') }}">{{ __('Sekretarki') }}</a>
+            <a class="dropdown-item" href="{{ URL::to('specializations') }}">{{ __('Specjalizacje') }}</a>
           </div>
         </li>
         <li class="nav-item dropdown">

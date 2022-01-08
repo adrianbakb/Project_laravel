@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Moduł wizyt')])
+@extends('layouts.app', ['activePage' => 'Wizyty', 'titlePage' => __('Moduł wizyt')])
 
 
 @section('title')
@@ -7,7 +7,17 @@
 @endsection('title')
 
 @section('content')
+
 <div class="content">
+  @if ($errors->any())                                                            <!--wyświetlanie/obsługa błędów-->
+  <div class="alert alert-danger">
+    <ul>
+      @foreach($errors->all() as $error)
+      <li> {{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
   <div class="container-fluid">
     <div class="card card-stats">
       <div class="card-header card-header-info text-center">

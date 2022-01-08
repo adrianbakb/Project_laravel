@@ -17,11 +17,6 @@ class DoctorController extends Controller
 
     public function index(UserRepository $userRepo){
 
-      /*if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
-      {
-        return redirect()->route('login');
-      }*/
-
       $statistics = $userRepo->getDoctorsStatistisc();
       $users = $userRepo->getAllDoctors();
 
@@ -33,7 +28,7 @@ class DoctorController extends Controller
 
     public function listBySpecialization(UserRepository $userRepo,$id){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }
@@ -48,34 +43,26 @@ class DoctorController extends Controller
 
     public function show(UserRepository $userRepo,$id){
 
-    /*if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
-      {
-        return redirect()->route('login');
-      }*/
-
       $doctor = $userRepo->find($id);
 
-      return view('doctors.show',["doctor"=>$doctor,
-                                  "footerYear"=>date("Y"),
-                                  "title"=>"Moduł lekarzy"]);
+      return view('doctors.show',["doctor"=>$doctor,"title"=>"Moduł lekarzy"]);
     }
 
     public function create(){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }
 
       $specializations = Specialization::All();
 
-      return view('doctors.create', ["specializations" => $specializations,
-                                      "footerYear" =>date("Y")]);
+      return view('doctors.create', ["specializations" => $specializations]);
     }
 
     public function store(Request $request){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }
@@ -86,7 +73,7 @@ class DoctorController extends Controller
         'password' => 'required|min:5',
         'phone' => 'required',
         'address' => 'required',
-        'pesel' => 'required'
+        'pesel' => 'required|min:11|max:11'
       ]);
 
       $doctor = new User;                                                        //dodawanie lekarza do bazy poprzez przechwycenie danych z formularza
@@ -106,7 +93,7 @@ class DoctorController extends Controller
 
     public function edit(UserRepository $userRepo,$id){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }
@@ -120,7 +107,7 @@ class DoctorController extends Controller
 
     public function delete(UserRepository $userRepo,$id){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }
@@ -131,7 +118,7 @@ class DoctorController extends Controller
 
     public function editStore(Request $request){
 
-      if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+      if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
       {
         return redirect()->route('login');
       }

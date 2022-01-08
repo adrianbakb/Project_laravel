@@ -17,11 +17,6 @@ class SpecializationController extends Controller
 
   public function index(SpecializationRepository $specializationRepo){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
-    {
-      return redirect()->route('login');
-    }
-
     $specializations = $specializationRepo ->getAll();
 
     return view('specializations.list',["specializations"=>$specializations,
@@ -30,17 +25,17 @@ class SpecializationController extends Controller
   }
   public function create(){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
 
-    return view('specializations.create', ["footerYear"=>date("Y")]);
+    return view('specializations.create');
   }
 
   public function store(Request $request){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }

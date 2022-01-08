@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Moduł lekarzy')])
+@extends('layouts.app', ['activePage' => 'Lekarze', 'titlePage' => __('Moduł lekarzy')])
 
 @section('title')
 @if (isset($title)){{$title }}

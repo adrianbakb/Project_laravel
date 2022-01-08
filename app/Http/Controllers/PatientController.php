@@ -13,7 +13,7 @@ class PatientController extends Controller
 
   public function index(UserRepository $userRepo){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
@@ -25,9 +25,9 @@ class PatientController extends Controller
                                 "title"=>"Moduł pacjentów" ]);
   }
 
-  public function show(UserRepository $userRepo,$id){
+ public function show(UserRepository $userRepo,$id){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
@@ -36,12 +36,21 @@ class PatientController extends Controller
     $patient = $userRepo->find($id);
 
     return view('patients.show',["patient"=>$patient,
-                                "footerYear"=>date("Y"),
-                                "title"=>"Moduł pacjentów"]);
+                                 "title"=>"Moduł pacjentów"]);
   }
 
-  public function store(Request $request){
+  public function create(){
 
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
+    {
+      return redirect()->route('login');
+    }
+
+    return view('patients.create',["title"=>"Moduł pacjentów"]);
+  }
+
+
+  public function store(Request $request){
 
     $request->validate([                                                      //walidacja danych wprowadzonych do formularza
       'name' => 'required|max:255',  //pole wymagane max 255 znaków
@@ -49,7 +58,7 @@ class PatientController extends Controller
       'password' => 'required|min:5',
       'phone' => 'required',
       'address' => 'required',
-      'pesel' => 'required'
+      'pesel' => 'required|min:11|max:11'
     ]);
 
     $patient = new User;
@@ -59,13 +68,55 @@ class PatientController extends Controller
     $patient->phone = $request->input('phone');
     $patient->address = $request->input('address');
     $patient->pesel = $request->input('pesel');
-    $patient->status = $request->input('status');
+    $patient->status = 'NULL';
     $patient->type = 'patient';
     $patient->save();
 
-    //return view('patients.confirm',[ "footerYear"=>date("Y"),
-                                     //"title"=>"Moduł pacjentów"]);
     return redirect()->action('App\Http\Controllers\PatientController@index');
   }
+
+  public function edit(UserRepository $userRepo,$id){
+
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
+    {
+      return redirect()->route('login');
+    }
+
+    $patient = $userRepo->find($id);
+
+    return view('patients.edit', ["patient" => $patient,
+                                    "footerYear" =>date("Y")]);
+  }
+
+  public function delete(UserRepository $userRepo,$id){
+
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
+    {
+      return redirect()->route('login');
+    }
+
+    $patient = $userRepo->delete($id);
+    return redirect('patients');
+  }
+
+  public function editStore(Request $request){
+
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
+    {
+      return redirect()->route('login');
+    }
+
+    $patient = User::find($request->input('id'));
+    $patient->name = $request->input('name');
+    $patient->email = $request->input('email');
+    $patient->phone = $request->input('phone');
+    $patient->address = $request->input('address');
+    $patient->pesel = $request->input('pesel');
+    $patient->status = 'NULL';
+    $patient->save();
+
+    return redirect()->action('App\Http\Controllers\PatientController@index');
+  }
+
 
 }

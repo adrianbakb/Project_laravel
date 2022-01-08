@@ -11,4 +11,5 @@ class VisitRepository extends BaseRepository{
     $this->model = $model;
   }
 
+
 }

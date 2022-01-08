@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Moduł wizyt')])
+@extends('layouts.app', ['activePage' => 'Wizyty', 'titlePage' => __('Moduł wizyt')])
 
 @section('title')
 @if (isset($title)){{$title }}
@@ -32,7 +32,7 @@
             <tr>
               <th scope="row">{{ $visits->id}}</th>
               <td> {{ $visits->patient->name }} ({{ $visits->patient->pesel }})</td>
-              <td>{{ $visits->doctor->name }}</td>
+              <td>{{ $visits->doctor->name }} ({{ $visits->doctor->email}})</td>
               <td> {{ $visits->date }}</td>
             </tr>
             @endforeach

@@ -12,7 +12,7 @@ class PanelController extends Controller
 {
   public function show(UserRepository $userRepo,$id){
 
-    if(Auth::user()->type != 'doctor' && Auth::user()->type != 'admin')
+    if(Auth::user()->type != 'secretary' && Auth::user()->type != 'admin')
     {
       return redirect()->route('login');
     }
